@@ -1,15 +1,15 @@
 import socket
 
-def create_socket():
+def make_connection(host, port):
     try:
-        host = '8.8.8.8'
-        port = 53
-        print(f"Successfully connected to {host} on port {port}")
-        s.close()
-    except PermissionError:
-        print("Permission denied: Unable to create the socket.")
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((host, port))
+            print(f"Connected to {host} on port {port}")
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"Failed to connect to {host} on port {port}: {e}")
 
-if __name__ == "__main__":
-    create_socket()
+# Successful connection
+make_connection("webpros.com", 80) 
+
+# Unsuccessful connection
+make_connection("127.0.0.1", 4343)
